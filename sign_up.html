@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>cookie demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .form-wrapper {
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .form-wrapper .row {
+      margin: 15px 0;
+    }
+
+    .form-wrapper .row>label {
+      display: inline-block;
+      min-width: 4em;
+    }
+
+    .form-wrapper .row>input[type=submit] {
+      padding: 3px 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-wrapper">
+    <h1>注册</h1>
+    <form id="signUpForm">
+      <div class="row">
+        <label>邮箱</label>
+        <input type="text" name="email">
+      </div>
+      <div class="row">
+        <label>密码</label>
+        <input type="password" name="password">
+      </div>
+      <div class="row">
+        <label>确认密码</label>
+        <input type="password" name="confirm_password">
+      </div>
+      <div class="row">
+        <input type="submit" value="注册">
+      </div>
+    </form>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    let signUpInfo = {}
+    $('#signUpForm').on('submit', (e) => {
+      e.preventDefault()
+      let signUpInfoKey = ['email', 'password', 'confirm_password']
+      signUpInfoKey.forEach((key, i) => {
+        let value = $('#signUpForm').find(`input[name=${key}]`).val()
+        signUpInfo[key] = value
+      })
+      $.post('/sign_up', signUpInfo)
+        .then(() => { }, () => { })
+
+    })
+
+    // $.post('/sign_up', signUpInfo).then()
+  </script>
+</body>
+
+</html>
